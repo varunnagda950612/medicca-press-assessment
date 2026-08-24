@@ -1,38 +1,37 @@
-import { useEffect, useRef } from 'react'
-
+import { useEffect, useRef } from "react";
 
 export default function UserDetailModal({ user, onClose }) {
-  const dialogRef = useRef(null)
+  const dialogRef = useRef(null);
 
   useEffect(() => {
-    const dialogNode = dialogRef.current
-    if (!dialogNode) return
+    const dialogNode = dialogRef.current;
+    if (!dialogNode) return;
 
     if (user) {
-      if (!dialogNode.open) dialogNode.showModal()
+      if (!dialogNode.open) dialogNode.showModal();
     } else if (dialogNode.open) {
-      dialogNode.close()
+      dialogNode.close();
     }
-  }, [user])
+  }, [user]);
 
   useEffect(() => {
-    const dialogNode = dialogRef.current
-    if (!dialogNode) return
+    const dialogNode = dialogRef.current;
+    if (!dialogNode) return;
 
     // Fires on Escape as well as our own .close() call, so this keeps
     // parent state (selectedUser) in sync with the dialog's real state.
     function handleClose() {
-      onClose()
+      onClose();
     }
-    dialogNode.addEventListener('close', handleClose)
-    return () => dialogNode.removeEventListener('close', handleClose)
-  }, [onClose])
+    dialogNode.addEventListener("close", handleClose);
+    return () => dialogNode.removeEventListener("close", handleClose);
+  }, [onClose]);
 
   function handleBackdropClick(event) {
     // A click that lands on the <dialog> element itself (not its content)
     // is a click on the backdrop area.
     if (event.target === dialogRef.current) {
-      dialogRef.current?.close()
+      dialogRef.current?.close();
     }
   }
 
@@ -71,23 +70,30 @@ export default function UserDetailModal({ user, onClose }) {
           </div>
 
           <div className="modal-body space-y-4 p-4 pt-0 text-sm">
-            <p className="text-slate-500">{user.email}</p>
-
             <dl className="grid grid-cols-3 gap-x-3 gap-y-3">
               <dt className="col-span-1 font-medium text-slate-600">
-                Address
+                Email ID:
               </dt>
+              <dd className="col-span-2 text-slate-700">{user.email}</dd>
+
+              <dt className="col-span-1 font-medium text-slate-600">Company</dt>
               <dd className="col-span-2 text-slate-700">
-                {user.address?.suite} {user.address?.street},{' '}
+                {user.company?.name}
+                <span className="block text-xs italic text-slate-400">
+                  &ldquo;{user.company?.catchPhrase}&rdquo;
+                </span>
+              </dd>
+
+              <dt className="col-span-1 font-medium text-slate-600">Address</dt>
+              <dd className="col-span-2 text-slate-700">
+                {user.address?.suite} {user.address?.street},{" "}
                 {user.address?.city} {user.address?.zipcode}
               </dd>
 
               <dt className="col-span-1 font-medium text-slate-600">Phone</dt>
               <dd className="col-span-2 text-slate-700">{user.phone}</dd>
 
-              <dt className="col-span-1 font-medium text-slate-600">
-                Website
-              </dt>
+              <dt className="col-span-1 font-medium text-slate-600">Website</dt>
               <dd className="col-span-2 text-indigo-600">
                 <a
                   href={`https://${user.website}`}
@@ -97,16 +103,6 @@ export default function UserDetailModal({ user, onClose }) {
                 >
                   {user.website}
                 </a>
-              </dd>
-
-              <dt className="col-span-1 font-medium text-slate-600">
-                Company
-              </dt>
-              <dd className="col-span-2 text-slate-700">
-                {user.company?.name}
-                <span className="block text-xs italic text-slate-400">
-                  &ldquo;{user.company?.catchPhrase}&rdquo;
-                </span>
               </dd>
             </dl>
           </div>
@@ -123,5 +119,5 @@ export default function UserDetailModal({ user, onClose }) {
         </div>
       )}
     </dialog>
-  )
+  );
 }
