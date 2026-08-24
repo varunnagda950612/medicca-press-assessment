@@ -20,16 +20,18 @@ export default function UserCard({ user, onSelect }) {
       onClick={() => onSelect(user)}
       onKeyDown={handleKeyDown}
     >
-      <h3 className="text-base font-semibold text-slate-900">
-        {user.name}
-        <span className="bg-indigo-50 ml-2 px-2 py-0.5 rounded-full text-xs font-medium text-indigo-600">
+      <h3 className="text-base font-semibold text-slate-900">{user.name}</h3>
+      <div className="mb-4 mt-1 text-xs font-medium text-indigo-600">
+        <span className="text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded-full">
           @{user.username}
         </span>
-      </h3>
-
-      <p className="mt-1 truncate text-sm text-slate-500">{user.email}</p>
+      </div>
 
       <dl className="space-y-1.5 text-sm">
+        <div className="flex gap-1.5">
+          <dt className="font-medium text-slate-600">Email ID:</dt>
+          <dd className="truncate text-slate-500">{user.email}</dd>
+        </div>
         <div className="flex gap-1.5">
           <dt className="font-medium text-slate-600">Company:</dt>
           <dd className="truncate text-slate-500">{user.company?.name}</dd>
