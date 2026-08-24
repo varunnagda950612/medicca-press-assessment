@@ -1,0 +1,43 @@
+/*
+ * Kept separate from Tailwind's utility layer since keyframes and the
+ * dialog::backdrop pseudo-element aren't things utility classes cover.
+ */
+
+@keyframes card-enter {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Applied to each user card. The nth-child stagger gives a subtle
+   "cascading" feel instead of every card popping in at once. */
+.card-enter-animation {
+  animation: card-enter 0.45s ease-out both;
+}
+
+.card-enter-animation:nth-child(2n) {
+  animation-delay: 0.04s;
+}
+
+.card-enter-animation:nth-child(3n) {
+  animation-delay: 0.08s;
+}
+
+.user-modal::backdrop {
+  background-color: rgb(15 23 42 / 0.6);
+  animation: backdrop-fade-in 0.2s ease-out;
+}
+
+@keyframes backdrop-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
